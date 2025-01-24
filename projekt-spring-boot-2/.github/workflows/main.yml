@@ -2,7 +2,7 @@ name: Build and deploy Spring Application
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
