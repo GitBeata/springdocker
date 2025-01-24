@@ -26,8 +26,8 @@ public class UserController {
     }
     //    Dodawanie użytkownika
     @PostMapping
-    public String addUser(@RequestParam String name, @RequestParam String email, Model model) {
-        User user = new User(name, email);
+    public String addUser(@RequestParam String name, @RequestParam String email, @RequestParam Integer telephone, Model model) {
+        User user = new User(name, email, telephone);
         userRepository.save(user);
         return "redirect:/users";
     }
@@ -46,12 +46,13 @@ public class UserController {
     }
     //    Zapis edytowane użytkownika
     @PostMapping("/edit")
-    public String updateUser(@RequestParam String id, @RequestParam String name, @RequestParam String email) {
+    public String updateUser(@RequestParam String id, @RequestParam String name, @RequestParam String email, @RequestParam Integer telephone) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             User user = existingUser.get();
             user.setName(name);
             user.setEmail(email);
+            user.setTelephone(telephone);
             userRepository.save(user);
         }
         return "redirect:/users";

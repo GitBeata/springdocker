@@ -11,15 +11,17 @@ public class User {
     private String id;
     private String name;
     private String email;
+    private Integer telephone;
 
 
     public User() {
 
     }
 
-    public User(String name, String email) {
+    public User(String name, String email, Integer telephone) {
         this.name = name;
         this.email = email;
+        this.telephone= telephone;
     }
 
     //Gettery
@@ -29,6 +31,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public Integer getTelephone() {
+        return telephone;
     }
 
     public String getEmail() {
@@ -46,5 +52,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
     }
 }
