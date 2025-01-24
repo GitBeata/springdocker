@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -24,13 +25,46 @@ public class UserController {
         return "users";
     }
 
-    // Obsługa formularza
+
+
+    // Dodawanie użytkownika
     @PostMapping
     public String addUser(@RequestParam String name, @RequestParam String email, Model model) {
         User user= new User(name, email);
         userRepository.save(user);
         return "redirect:users";
     }
+
+    //Usuwanie użytkownika
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable String id){
+        userRepository.deleteById(id);
+        return "redirect:users";
+    }
+
+    //Edycja użytkownika (w formularzu)
+    @GetMapping("/edit/{id}")
+    public String editUserForm(@PathVariable String id, Model model) {
+        Optional<User> user = userRepository.findById(id);
+        user.ifPresent(u -> model.addAttribute("user", u));
+        return "edit-user";
+    }
+
+    //Zapis edytowanego użytkownika
+    @PostMapping("/edit")
+    public String updateUser(@RequestParam String id, @RequestParam String name, @RequestParam String email)
+    {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isPresent()){
+            User user= existingUser.get();
+            user.setName(name);
+            user.setEmail(email);
+            userRepository.save(user);
+        }
+        return "redirect:/users";
+    }
+
+
 //    @GetMapping
 //        public List<User> getAllUsers() {
 //            return userRepository.findAll();
