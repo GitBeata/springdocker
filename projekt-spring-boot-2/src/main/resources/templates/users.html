@@ -15,8 +15,9 @@
     </thead>
     <tbody>
         <tr th:each="user : ${allUsers}">
-            <td th:text="user.name}"></td>
-            <td th:text="user.email}"></td>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
         </tr>
     </tbody>
     <h2>Dodaj użytkownika</h2>
